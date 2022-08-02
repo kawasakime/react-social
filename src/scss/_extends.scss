@@ -1,0 +1,30 @@
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%auth-container {
+  width: $auth_container_width;
+  height: 500px;
+  background: $white;
+  border-radius: $auth_container_border_radius;
+  box-shadow: 5px 5px 8px 0px $rgba_black_2;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+%auth-container-title {
+  margin-top: 5px;
+  font-size: 30px;
+  font-weight: 200;
+  text-transform: uppercase;
+  color: $dark_blue;
+}
+
+%auth-form-field {
+  @extend %flex-center;
+  // justify-content:;
+  position: relative;
+  margin-bottom: 25px;
+}

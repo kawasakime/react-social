@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./extends";
 @import "./libs/normalize";
 
 @import "./components/all";
@@ -8,9 +9,8 @@ body {
 }
 
 .login {
-  display: flex;
+  @extend %flex-center;
   align-items: flex-start;
-  justify-content: center;
   padding-top: 120px;
 
   & > h1 {
@@ -59,36 +59,18 @@ body {
   }
 
   &__container {
-    position: relative;
-    width: 400px;
-    height: 500px;
-    background: $white;
-    border-radius: 20px;
-    box-shadow: 5px 5px 8px 0px $rgba_black_2;
-    padding: 50px 30px;
-    text-align: center;
+    @extend %auth-container;
 
     h1 {
-      position: relative;
-      margin-top: 5px;
-      font-size: 30px;
-      font-weight: 200;
-      text-transform: uppercase;
-      color: #333;
+      @extend %auth-container-title;
     }
   }
 
   &__form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
     margin-top: 40px;
 
     .form-field {
-      position: relative;
-      display: flex;
-      align-items: center;
-      margin-bottom: 25px;
+      @extend %auth-form-field;
 
       &:nth-child(2) {
         margin-bottom: 35px;
@@ -97,6 +79,79 @@ body {
 
     button {
       margin-bottom: 20px;
+    }
+  }
+}
+
+.registration {
+  padding: 120px;
+
+  &__container {
+    @extend %auth-container;
+    position: relative;
+    margin: 0 auto;
+
+    .back {
+      @extend %flex-center;
+      justify-content: flex-start;
+      position: absolute;
+      top: 15px;
+      left: 10px;
+      font-size: 30px;
+      color: $gray;
+      transition: $duration;
+      overflow: hidden;
+      width: 30px;
+
+      &:hover {
+        color: $dark_blue;
+        width: 100px;
+
+        span {
+          top: 5px;
+        }
+
+      }
+
+      span {
+        margin-left: 5px;
+        font-size: 17px;
+        font-weight: 700;
+        color: $dark_blue;
+        position: absolute;
+        transition: $duration;
+        left: 25px;
+        top: -40px
+      }
+    }
+
+    h1 {
+      @extend %auth-container-title;
+    }
+  }
+
+  &__form {
+    margin-top: 40px;
+    
+    .form-field {
+      @extend %auth-form-field;
+      cursor: pointer;
+
+      &:nth-child(3) {
+        margin-bottom: 35px
+      }
+
+      .visibility {
+        @extend %flex-center;
+        left: auto;
+        right: 5px;
+        transition: $duration;
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+
     }
   }
 }

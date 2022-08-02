@@ -1,6 +1,8 @@
 .auth-btn {
+  @extend %flex-center;
   position: relative;
-  height: 50px;
+  width: 100%;
+  height: 55px;
   font-size: 17px;
   color: $white;
   border-radius: 5px;
@@ -19,7 +21,7 @@
   }
 }
 
-.login-btn {
+.login-btn, .register-btn{
   background-color: $dark_blue;
 }
 
