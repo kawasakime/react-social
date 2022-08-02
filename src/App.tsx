@@ -1,8 +1,13 @@
 import React from "react";
-import "./App.css";
+import Login from "./pages/Login";
+import "./scss/app.scss";
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 }
 
 export default App;
