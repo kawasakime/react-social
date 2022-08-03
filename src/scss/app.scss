@@ -91,6 +91,13 @@ body {
     position: relative;
     margin: 0 auto;
 
+    .error {
+      position: relative;
+      color: #bb2c2c;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
     .back {
       @extend %flex-center;
       justify-content: flex-start;
