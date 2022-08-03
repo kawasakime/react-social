@@ -10,4 +10,4 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig); //eslint-disable-line
+export const app = initializeApp(firebaseConfig); //eslint-disable-line
