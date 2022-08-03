@@ -1,7 +1,6 @@
 import * as React from "react";
-import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { BsChatLeftFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import LoginForm from "../components/Forms/LoginForm";
 
 interface ILoginProps {}
 
@@ -23,25 +22,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
       <div className="login__container">
         <div className="login__top-decor"></div>
         <h1>Авторизация</h1>
-        <form className="login__form" action="">
-          <div className="form-field">
-            <AiOutlineUser className="auth-icon" />
-            <input className="auth-input" type="text" placeholder="Логин" required/>
-          </div>
-          <div className="form-field">
-            <AiOutlineLock className="auth-icon" />
-            <input
-              className="auth-input"
-              type="password"
-              placeholder="Пароль"
-              required
-            />
-          </div>
-          <button className="auth-btn login-btn">Войти</button>
-          <Link to="/registration" className="auth-btn registration-btn">
-            Регистрация
-          </Link>
-        </form>
+        <LoginForm/>
       </div>
     </div>
   );
