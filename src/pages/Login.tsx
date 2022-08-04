@@ -2,14 +2,20 @@ import * as React from "react";
 import { BsChatLeftFill } from "react-icons/bs";
 import LoginForm from "../components/Forms/LoginForm";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { setUser, UserState } from "../redux/slices/userSlice";
+import { setUser } from "../redux/slices/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { AuthError } from "./Registration";
 
 interface ILoginProps {}
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
   const dispatch = useAppDispatch();
+
+  const [error, setError] = React.useState<AuthError>({
+    status: false,
+    message: "Ошибка",
+  });
 
   const handleLoginUser = async (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -24,11 +30,12 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
             email: user.email,
             id: user.uid,
             token: await user.getIdToken(),
+            name: user.displayName
           };
           dispatch(setUser({ ...userObj }));
         })
         .catch((error) => {
-          console.log(error.message);
+          setError({status: true, message: error.message})
         });
     } catch (error) {
       console.log("Ошибка", error);
@@ -53,6 +60,9 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
         <div className="login__top-decor"></div>
         <h1>Авторизация</h1>
         <LoginForm handleLogin={handleLoginUser} />
+        {error.status ? (
+          <div className="error">{error.message}</div>
+        ) : undefined}
       </div>
     </div>
   );
