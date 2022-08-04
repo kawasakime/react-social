@@ -13,7 +13,8 @@ interface IRegistrationFormProps {
   handleRegisterUser: (
     e: React.MouseEvent<HTMLButtonElement>,
     email: string,
-    passowrd: string
+    passowrd: string,
+    name: string
   ) => void;
 }
 
@@ -63,7 +64,7 @@ const RegistrationForm: React.FC<IRegistrationFormProps> = ({
       </div>
       <button
         className="auth-btn login-btn"
-        onClick={(e) => handleRegisterUser(e, email, password)}
+        onClick={(e) => handleRegisterUser(e, email, password, name)}
       >
         Зарегистрироваться
       </button>
