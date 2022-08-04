@@ -4,6 +4,11 @@
   align-items: center;
 }
 
+%grid-place-center {
+  display: grid;
+  place-items: center;
+}
+
 %auth-container {
   width: $auth_container_width;
   height: 500px;
@@ -26,4 +31,11 @@
   @extend %flex-center;
   position: relative;
   margin-bottom: 25px;
+}
+
+%auth-error {
+  position: relative;
+  color: #bb2c2c;
+  font-weight: 600;
+  margin-top: 10px;
 }

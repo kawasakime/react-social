@@ -8,6 +8,12 @@ body {
   background: $bg;
 }
 
+.wrapper {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .login {
   @extend %flex-center;
   align-items: flex-start;
@@ -61,6 +67,10 @@ body {
   &__container {
     @extend %auth-container;
 
+    .error {
+      @extend %auth-error;
+    }
+
     h1 {
       @extend %auth-container-title;
     }
@@ -92,10 +102,7 @@ body {
     margin: 0 auto;
 
     .error {
-      position: relative;
-      color: #bb2c2c;
-      font-weight: 600;
-      margin-top: 10px;
+      @extend %auth-error;
     }
 
     .back {
