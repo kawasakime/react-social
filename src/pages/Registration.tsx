@@ -1,11 +1,12 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import * as React from "react";
 
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
-import RegistrationForm from "../components/RegistrationForm";
+import RegistrationForm from "../components/Forms/RegistrationForm";
 import Loader from "../components/UI/Loader";
 import Success from "../components/UI/Success";
-import { registerUser } from "../utils/auth";
+import { auth } from "../firebase";
 
 type Error = { status: boolean; message: string };
 
@@ -21,15 +22,17 @@ const Registration: React.FunctionComponent<IRegistrationProps> = (props) => {
 
   const navigate = useNavigate();
 
+  // console.log(auth.currentUser?.getIdToken)
+
   function handleRegisterUser(
     e: React.MouseEvent<HTMLButtonElement>,
     email: string,
-    passowrd: string
+    password: string
   ) {
     e.preventDefault();
     setIsLoading(true);
     error.status = false;
-    registerUser(email, passowrd)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         setIsSucces(true);
         setTimeout(() => {

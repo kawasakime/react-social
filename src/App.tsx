@@ -8,16 +8,24 @@ import Registration from "./pages/Registration";
 import "./scss/app.scss";
 
 function App() {
-
   const isAuth = useAuth().isAuth;
 
   return (
-      <div>
-        <Routes>
-          <Route path="/" element={isAuth ? <Home/> : <Navigate to="/login" replace/>}/>
-          <Route path="/login" element={isAuth ? <Navigate to="/" replace/> : <Login />}/>
-          <Route path="/registration" element={ isAuth ? <Navigate to="/" replace/> : <Registration/>}/>
-        </Routes>
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={isAuth ? <Home /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/login"
+          element={isAuth ? <Navigate to="/" replace /> : <Login />}
+        />
+        <Route
+          path="/registration"
+          element={isAuth ? <Navigate to="/" replace /> : <Registration />}
+        />
+      </Routes>
     </div>
   );
 }

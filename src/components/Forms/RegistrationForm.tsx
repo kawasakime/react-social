@@ -7,15 +7,19 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import AuthInput from "./UI/AuthInput";
+import AuthInput from "../UI/AuthInput";
 
 interface IRegistrationFormProps {
-  handleRegisterUser: (e: React.MouseEvent<HTMLButtonElement>,email: string, passowrd: string) => void
+  handleRegisterUser: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    email: string,
+    passowrd: string
+  ) => void;
 }
 
-const RegistrationForm: React.FunctionComponent<IRegistrationFormProps> = (
-  {handleRegisterUser}
-) => {
+const RegistrationForm: React.FC<IRegistrationFormProps> = ({
+  handleRegisterUser,
+}) => {
   const [visibility, setVisibility] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassowrd] = React.useState<string>("");
@@ -23,18 +27,6 @@ const RegistrationForm: React.FunctionComponent<IRegistrationFormProps> = (
 
   function handleVisibility() {
     setVisibility((prev) => !prev);
-  }
-
-  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
-    setPassowrd(e.target.value)
-  }
-
-  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value)
   }
 
   return (
@@ -45,7 +37,7 @@ const RegistrationForm: React.FunctionComponent<IRegistrationFormProps> = (
           type={"text"}
           placeholder={"Никнейм"}
           value={name}
-          handleChangeEmail={handleChangeName}
+          setValue={setName}
         />
       </div>
       <div className="form-field">
@@ -54,7 +46,7 @@ const RegistrationForm: React.FunctionComponent<IRegistrationFormProps> = (
           type={!visibility ? "password" : "text"}
           placeholder={"Пароль"}
           value={password}
-          handleChangeEmail={handleChangePassword}
+          setValue={setPassowrd}
         />
         <div className="auth-icon visibility" onClick={handleVisibility}>
           {visibility ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -66,10 +58,15 @@ const RegistrationForm: React.FunctionComponent<IRegistrationFormProps> = (
           type={"email"}
           placeholder={"Email"}
           value={email}
-          handleChangeEmail={handleChangeEmail}
+          setValue={setEmail}
         />
       </div>
-      <button className="auth-btn login-btn" onClick={(e) => handleRegisterUser(e, email, password)}>Зарегистрироваться</button>
+      <button
+        className="auth-btn login-btn"
+        onClick={(e) => handleRegisterUser(e, email, password)}
+      >
+        Зарегистрироваться
+      </button>
     </form>
   );
 };

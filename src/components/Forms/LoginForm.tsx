@@ -1,39 +1,37 @@
 import * as React from "react";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { app } from "../../firebase";
-import { getAuth } from "firebase/auth"
+import AuthInput from "../UI/AuthInput";
 
-interface ILoginFormProps {}
+interface ILoginFormProps {
+  handleLogin: (e: React.MouseEvent<HTMLButtonElement>, email: string, password: string) => void;
+}
 
-const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
-
-  const [login, setLogin] = React.useState<string>('')
-  const [password, setPassowrd] = React.useState<string>('')
-
-  const auth = getAuth(app);
+const LoginForm: React.FunctionComponent<ILoginFormProps> = ({handleLogin}) => {
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassowrd] = React.useState<string>("");
 
   return (
     <form className="login__form" action="">
       <div className="form-field">
         <AiOutlineUser className="auth-icon" />
-        <input
-          className="auth-input"
-          type="text"
-          placeholder="Логин"
-          required
+        <AuthInput
+          type={"email"}
+          placeholder={"Почта"}
+          value={email}
+          setValue={setEmail}
         />
       </div>
       <div className="form-field">
         <AiOutlineLock className="auth-icon" />
-        <input
-          className="auth-input"
-          type="password"
-          placeholder="Пароль"
-          required
+        <AuthInput
+          type={"password"}
+          placeholder={"Пароль"}
+          value={password}
+          setValue={setPassowrd}
         />
       </div>
-      <button className="auth-btn login-btn">Войти</button>
+      <button className="auth-btn login-btn" onClick={(e) => {handleLogin(e, email, password)}}>Войти</button>
       <Link to="/registration" className="auth-btn registration-btn">
         Регистрация
       </Link>

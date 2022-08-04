@@ -4,19 +4,19 @@ interface IAuthInputProps {
   type: string;
   placeholder: string;
   value: string;
-  handleChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AuthInput: React.FunctionComponent<IAuthInputProps> = ({
   type,
   placeholder,
   value,
-  handleChangeEmail,
+  setValue,
 }) => {
   return (
     <input
       value={value}
-      onChange={handleChangeEmail}
+      onChange={(e) => setValue(e.target.value)}
       type={type}
       className="auth-input"
       placeholder={placeholder}
