@@ -12,7 +12,7 @@ function App() {
   const isAuth = useAuth().isAuth;
 
   return (
-    <div>
+    <>
       <Routes>
         <Route
           path="/"
@@ -28,7 +28,7 @@ function App() {
           element={isAuth ? <Navigate to="/" replace /> : <Registration />}
         />
       </Routes>
-    </div>
+    </>
   );
 }
 

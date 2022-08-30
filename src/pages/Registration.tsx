@@ -1,12 +1,15 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import * as React from "react";
+
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, update } from "firebase/database";
 
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import RegistrationForm from "../components/Forms/RegistrationForm";
 import Loader from "../components/UI/Loader";
 import Success from "../components/UI/Success";
-import { auth } from "../firebase";
+import { auth, database } from "../firebase";
+import { getDefaultPhoto } from "../utils/getPhotos";
 
 export type AuthError = { status: boolean; message: string };
 
@@ -22,19 +25,36 @@ const Registration: React.FunctionComponent<IRegistrationProps> = (props) => {
 
   const navigate = useNavigate();
 
-  console.log(auth.currentUser);
-
-  function handleRegisterUser(
+  const handleRegisterUser = async (
     e: React.MouseEvent<HTMLButtonElement>,
     email: string,
     password: string,
     name: string
-  ) {
+  ) => {
     e.preventDefault();
     setIsLoading(true);
     error.status = false;
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => updateProfile(user, { displayName: name }))
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(async ({ user }) => {
+
+        const imgUrl:string = await getDefaultPhoto();
+
+        const data = {
+          uid: user.uid,
+          name: name,
+          email: email,
+          imgUrl: imgUrl,
+          chats: [],
+        };
+
+        const updates: any = {};
+        updates[`/users/${data.uid}`] = data;
+
+        await update(ref(database), updates);
+        await updateProfile(user, { displayName: name });
+        await updateProfile(user, { photoURL: imgUrl})
+      })
       .then(() => {
         setIsSucces(true);
         setTimeout(() => {
@@ -46,7 +66,9 @@ const Registration: React.FunctionComponent<IRegistrationProps> = (props) => {
         setError({ status: true, message: error.code });
       })
       .finally(() => setIsLoading(false));
-  }
+  };
+
+  React.useEffect(() => {}, []);
 
   return (
     <div className="registration">
@@ -59,9 +81,7 @@ const Registration: React.FunctionComponent<IRegistrationProps> = (props) => {
         </Link>
         <h1>Регистрация</h1>
         <RegistrationForm handleRegisterUser={handleRegisterUser} />
-        {error.status ? (
-          <div className="error">{error.message}</div>
-        ) : undefined}
+        {error.status ? <div className="error">{error.message}</div> : undefined}
       </div>
     </div>
   );
